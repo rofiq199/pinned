@@ -1,5 +1,8 @@
 <?php
 
+use App\Http\Controllers\admin\CategoriesController;
+use App\Http\Controllers\admin\DashboardController;
+use App\Http\Controllers\admin\SubcategoriesController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,3 +19,6 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+Route::get('dashboard', [DashboardController::class, 'index']);
+Route::get('categories', [CategoriesController::class, 'index']);
+Route::resource('subcategories', 'SubcategoriesController');
