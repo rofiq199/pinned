@@ -10,13 +10,10 @@ class CategoriesController extends Controller
 {
     public function index()
     {
-        return view('admin.pages.categories');
+        $categories = Categories::get();
+        return view('admin.pages.categories', ['category' => $categories]);
     }
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function create()
     {
         //
@@ -30,7 +27,18 @@ class CategoriesController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
+        $request->validate([
+            'name_categories' => 'required'
+        ]);
+        Categories::updateOrCreate(
+            ['id' => $request->id],
+            ['name' => $request->name_categories]
+        );
+
+        return redirect()->to('/categories')
+            ->with('success', 'Categories created successfully.');
+        // return view('welcome1', array('data' => $request))->with('success', 'Categories created successfully.');;
     }
 
     /**
@@ -52,7 +60,6 @@ class CategoriesController extends Controller
      */
     public function edit(Categories $categories)
     {
-        //
     }
 
     /**
@@ -73,8 +80,13 @@ class CategoriesController extends Controller
      * @param  \App\Models\Categories  $categories
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Categories $categories)
+    public function destroy($id)
     {
-        //
+        $categories = Categories::findOrfail($id);
+        if ($categories) {
+            $categories->delete();
+            return redirect()->route('categories.index')
+                ->with('success', 'Deleted successfully');
+        }
     }
 }

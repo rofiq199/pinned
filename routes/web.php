@@ -20,5 +20,5 @@ Route::get('/', function () {
     return view('welcome');
 });
 Route::get('dashboard', [DashboardController::class, 'index']);
-Route::get('categories', [CategoriesController::class, 'index']);
-Route::resource('subcategories', 'SubcategoriesController');
+Route::resource('categories', CategoriesController::class);
+Route::resource('subcategories', SubcategoriesController::class);
