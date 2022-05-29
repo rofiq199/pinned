@@ -11,7 +11,7 @@
 <body>
     {{ $data->name_categories }}<br>
     {{ Session::get('success') }}
-
+halo
 </body>
 
 </html>
